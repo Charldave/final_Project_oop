@@ -41,6 +41,7 @@ gameover = False
 speed = 2
 score = 0
 
+#encapsulation (parent class)
 class Vehicle(pygame.sprite.Sprite):
     
     def __init__(self, image, x, y):
@@ -54,6 +55,7 @@ class Vehicle(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = [x, y]
 
+#inheritance (child class)
 class PlayerVehicle(Vehicle):
     
     def __init__(self, x, y):
@@ -118,6 +120,7 @@ while running:
         pygame.draw.rect(screen, white, (left_lane + 45, y + lane_marker_move_y, marker_width, marker_height))
         pygame.draw.rect(screen, white, (center_lane + 45, y + lane_marker_move_y, marker_width, marker_height))
 
+    #polymorphism
     player_group.draw(screen)
     
     if len(vehicle_group) < 2:
@@ -132,7 +135,8 @@ while running:
             lane = random.choice(lanes)
             
             image = random.choice(vehicle_images)
-            vehicle = Vehicle(image, lane, height / -2)
+            #abstraction
+            vehicle = Vehicle(image, lane, height / -2) 
             vehicle_group.add(vehicle)
     
     for vehicle in vehicle_group:
@@ -145,7 +149,8 @@ while running:
             
             if score > 0 and score % 5 == 0:
                 speed += 1
-    
+
+    #polymorphism
     vehicle_group.draw(screen)
     
     font = pygame.font.Font(pygame.font.get_default_font(), 16)
@@ -157,3 +162,39 @@ while running:
     if pygame.sprite.spritecollide(player, vehicle_group, True):
         gameover = True
         crash_rect.center = [player.rect.center[0], player.rect.top]
+
+    if gameover:
+        screen.blit(crash, crash_rect)
+        
+        pygame.draw.rect(screen, red, (0, 50, width, 100))
+        
+        font = pygame.font.Font(pygame.font.get_default_font(), 16)
+        text = font.render('Game over. Play again? (Enter Y or N)', True, white)
+        text_rect = text.get_rect()
+        text_rect.center = (width / 2, 100)
+        screen.blit(text, text_rect)
+            
+    pygame.display.update()
+
+    while gameover:
+        
+        clock.tick(fps)
+        
+        for event in pygame.event.get():
+            
+            if event.type == QUIT:
+                gameover = False
+                running = False
+                
+            if event.type == KEYDOWN:
+                if event.key == K_y:
+                    gameover = False
+                    speed = 2
+                    score = 0
+                    vehicle_group.empty()
+                    player.rect.center = [player_x, player_y]
+                elif event.key == K_n:
+                    gameover = False
+                    running = False
+
+pygame.quit()
