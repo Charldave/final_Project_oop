@@ -9,12 +9,19 @@ This project demonstrates the **4 pillars of Object-Oriented Programming (OOP)**
 
 python_car_game-main/
 ├── car_game.py            # Main game file
+
 ├── images/
+
 │   ├── car.png
+
 │   ├── crash.png
+
 │   ├── pickup_truck.png
+
 │   ├── semi_trailer.png
+
 │   ├── taxi.png
+
 │   └── van.png
 
 ## ▶️ How to Run the Game
