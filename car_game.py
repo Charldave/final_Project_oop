@@ -59,3 +59,18 @@ class PlayerVehicle(Vehicle):
     def __init__(self, x, y):
         image = pygame.image.load('images/car.png')
         super().__init__(image, x, y)
+
+player_group = pygame.sprite.Group()
+vehicle_group = pygame.sprite.Group()
+
+player = PlayerVehicle(player_x, player_y)
+player_group.add(player)
+
+image_filenames = ['pickup_truck.png', 'semi_trailer.png', 'taxi.png', 'van.png']
+vehicle_images = []
+for image_filename in image_filenames:
+    image = pygame.image.load('images/' + image_filename)
+    vehicle_images.append(image)
+    
+crash = pygame.image.load('images/crash.png')
+crash_rect = crash.get_rect()
