@@ -117,3 +117,43 @@ while running:
     for y in range(marker_height * -2, height, marker_height * 2):
         pygame.draw.rect(screen, white, (left_lane + 45, y + lane_marker_move_y, marker_width, marker_height))
         pygame.draw.rect(screen, white, (center_lane + 45, y + lane_marker_move_y, marker_width, marker_height))
+
+    player_group.draw(screen)
+    
+    if len(vehicle_group) < 2:
+        
+        add_vehicle = True
+        for vehicle in vehicle_group:
+            if vehicle.rect.top < vehicle.rect.height * 1.5:
+                add_vehicle = False
+                
+        if add_vehicle:
+            
+            lane = random.choice(lanes)
+            
+            image = random.choice(vehicle_images)
+            vehicle = Vehicle(image, lane, height / -2)
+            vehicle_group.add(vehicle)
+    
+    for vehicle in vehicle_group:
+        vehicle.rect.y += speed
+        
+        if vehicle.rect.top >= height:
+            vehicle.kill()
+            
+            score += 1
+            
+            if score > 0 and score % 5 == 0:
+                speed += 1
+    
+    vehicle_group.draw(screen)
+    
+    font = pygame.font.Font(pygame.font.get_default_font(), 16)
+    text = font.render('Score: ' + str(score), True, white)
+    text_rect = text.get_rect()
+    text_rect.center = (50, 400)
+    screen.blit(text, text_rect)
+    
+    if pygame.sprite.spritecollide(player, vehicle_group, True):
+        gameover = True
+        crash_rect.center = [player.rect.center[0], player.rect.top]
