@@ -34,3 +34,10 @@ python car_game.py
 → Move Right
 
 4. Score increases as you dodge more vehicles. Crashing ends the game.
+
+References:
+original creator - clickclackcode
+
+https://github.com/clickclackcode/python-car-game
+
+https://www.youtube.com/@clickclackcode
