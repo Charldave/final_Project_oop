@@ -30,3 +30,13 @@ left_edge_marker = (95, 0, marker_width, height)
 right_edge_marker = (395, 0, marker_width, height)
 
 lane_marker_move_y = 0
+
+player_x = 250
+player_y = 400
+
+clock = pygame.time.Clock()
+fps = 120
+
+gameover = False
+speed = 2
+score = 0
